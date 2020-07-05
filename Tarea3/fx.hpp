@@ -2,6 +2,7 @@
 #define FX_HPP
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ using namespace std;
 struct node{
     string doc;
     node *next;
+    
 };
 
 struct printer{     
@@ -41,13 +43,17 @@ struct stack{
 };
 
 
-void pushToStack(stack *&stack, string doc);
-void popFromStack(stack *&stack);
+void pushToStack(stack *&nodo, string doc);
+void popFromStack(stack *&nodo);
 
-void printerEnqueue(printer &queue, string doc);
-void printerDequeue(printer &queue);
+void printerEnqueue(printer *&queue, string doc);
+void printerDequeue(printer *&queue);
 
-void readDocs(stack *&hubStack, stack *&javiStack, stack johnStack, printer *&queue);
+void readDocs(stack *&hubStack, stack *&javiStack, stack *&johnStack, printer *&queue);
 void print(printer *&queue);
 
+string getDoc(string s);
+string getStackOwner(string s);
+
+void printStack(stack *nodo);
 #endif
