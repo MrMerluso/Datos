@@ -27,13 +27,13 @@ struct printer{
         return isOn;
     }
 
-    void turnPrinter(){
-        if (!isOn) {
-            isOn=true;
-            cout << "the printer is on" << endl;
-        }else{
-            isOn=false;
-        }
+    void turnPrinterOn(){
+        isOn=true;
+        cout << "the printer is on" << endl;  
+    }
+
+    void turnPrinterOff(){
+        isOn=false;
     }
 };
 
@@ -56,4 +56,5 @@ string getDoc(string s);
 string getStackOwner(string s);
 
 void printStack(stack *nodo);
+void printQueue(printer *nodo);
 #endif
