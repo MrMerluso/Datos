@@ -66,12 +66,40 @@ void insertStudent(node *&head, alumno * arreglo[], int largo){
     int noIngresados = 0;
     while(head!=NULL){
         int i = hasah(head->info->rol ,largo);
-        if(arreglo[i] == NULL){
-            arreglo[i] = head->info;
-            removeList(head);
-        }else{
-            bool flag = true;
-
+        bool flag=true;
+        int min=0;
+        while(flag){
+           while(i<largo){
+                if(alumno[i]==NULL){
+                    alumno[i]=head->info;
+                    removeList(head);
+                    flag=false;
+                    break;
+                }
+                i++;
+                colisiones++;
+            break;
+               
+           }
+        while(flag){
+            while(min<i){
+                if(alumno[min]==NULL){
+                    alumno[min]=head->info;
+                    removeList(head);
+                    flag=false;
+                    break;
+                }
+                min++;
+                colisiones++;
+                
+            }    
+            if(min==i){
+                    noIngresados++;
+                    removeList(head);
+                    flag=false;
+                }
+        
+        }
             
         }
     }
