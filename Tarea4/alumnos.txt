@@ -1,0 +1,4 @@
+2015730024;John R;Informatica;2015
+202073001K;Miku H;Informatica;2020
+1986420247;Jonas K;Fisica;2019
+2017730015;Ariana G;Arquitectura;2017
