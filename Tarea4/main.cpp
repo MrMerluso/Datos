@@ -13,11 +13,11 @@ int main(int argc, char *argv[]){
     string file = argv[1];
     int largo = atoi(argv[2]);
 
-    string * alumnos = NULL;
+    alumno * alumnos = NULL;
 
-    alumnos = new string[largo];
+    alumnos = new alumno[largo];
 
-    sumRol("202073001K");
+    // sumRol("202073001K");
 
     // readFile(file,lista);
     

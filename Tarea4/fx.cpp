@@ -38,10 +38,10 @@ void addList(node *&head, string linea[4]){
     
     node * newStudent = new node;
     
-    newStudent->info.rol = linea[0];
-    newStudent->info.nombre = linea[1];
-    newStudent->info.carrera = linea[2];
-    newStudent->info.yr = linea[3];
+    newStudent->info->rol = linea[0];
+    newStudent->info->nombre = linea[1];
+    newStudent->info->carrera = linea[2];
+    newStudent->info->yr = linea[3];
     
     node * aux1=head;
     node * aux2;
@@ -61,10 +61,20 @@ void addList(node *&head, string linea[4]){
     
 }
 
-void insertStudent(node *&head, string * arreglo, int largo){
-    // while(head != NULL){
-    //     char rol = head->info.rol;
-    // }
+void insertStudent(node *&head, alumno * arreglo[], int largo){
+    int colisiones = 0;
+    int noIngresados = 0;
+    while(head!=NULL){
+        int i = hasah(head->info->rol ,largo);
+        if(arreglo[i] == NULL){
+            arreglo[i] = head->info;
+            removeList(head);
+        }else{
+            bool flag = true;
+
+            
+        }
+    }
 }
 
 int sumRol(string rol){
@@ -81,7 +91,7 @@ int sumRol(string rol){
     return suma;
 }
 
-int hash(string x, int largo){
+int hasah(string x, int largo){
     int suma = sumRol(x);
     return suma % largo;
 }
@@ -96,7 +106,7 @@ void removeList(node *&head){
 void printList(node *head){  //imprimir lista en pantalla
     int count = 0;
     for (node *it = head; it != NULL; it = it -> next) {
-        cout <<it->info.nombre<< endl;
+        cout <<it->info->nombre<< endl;
         count++;
     }
 }
