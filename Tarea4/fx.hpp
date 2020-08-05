@@ -14,18 +14,22 @@ struct alumno{
     string yr;
 };
 
+
+
 struct node{
-    alumno * info;
+    alumno info;
     node * next;
 };
 
 void readFile(string file, node *&head);
 int sumRol(string rol);
 int hasah(string x, int largo);
-void insertStudent(node *&head, alumno* arreglo, int largo);
+void insertStudent(node *&head, alumno arreglo[], int largo);
 
 void addList(node *&head,string linea[4]);
 void removeList(node *&head);
+
+void PRINT(alumno arreglo[], int colisiones, int noIng, int largo);
 
 void printList(node *head);
 

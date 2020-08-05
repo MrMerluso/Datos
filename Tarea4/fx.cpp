@@ -38,10 +38,10 @@ void addList(node *&head, string linea[4]){
     
     node * newStudent = new node;
     
-    newStudent->info->rol = linea[0];
-    newStudent->info->nombre = linea[1];
-    newStudent->info->carrera = linea[2];
-    newStudent->info->yr = linea[3];
+    newStudent->info.rol = linea[0];
+    newStudent->info.nombre = linea[1];
+    newStudent->info.carrera = linea[2];
+    newStudent->info.yr = linea[3];
     
     node * aux1=head;
     node * aux2;
@@ -61,48 +61,63 @@ void addList(node *&head, string linea[4]){
     
 }
 
-void insertStudent(node *&head, alumno * arreglo[], int largo){
+void insertStudent(node *&head, alumno arreglo[], int largo){
     int colisiones = 0;
     int noIngresados = 0;
+    
     while(head!=NULL){
-        int i = hasah(head->info->rol ,largo);
-        bool flag=true;
+        int h = hasah(head->info.rol ,largo);
+        int i = h;
+        bool flag=false;
         int min=0;
-        while(flag){
-           while(i<largo){
-                if(alumno[i]==NULL){
-                    alumno[i]=head->info;
-                    removeList(head);
-                    flag=false;
-                    break;
-                }
+        int c = 0;
+        while(i<largo){
+            if(arreglo[i].nombre == ""){
+                arreglo[i] = head->info;
+                removeList(head);
+                flag = true;
+                break;
+            }else{
+                colisiones++;
+                c++;
                 i++;
-                colisiones++;
-            break;
-               
-           }
-        while(flag){
-            while(min<i){
-                if(alumno[min]==NULL){
-                    alumno[min]=head->info;
-                    removeList(head);
-                    flag=false;
-                    break;
-                }
-                min++;
-                colisiones++;
-                
-            }    
-            if(min==i){
-                    noIngresados++;
-                    removeList(head);
-                    flag=false;
-                }
-        
+            }
         }
-            
+        if(flag==false){
+            while(min<h){
+                if(arreglo[min].nombre==""){
+                    arreglo[min] = head->info;
+                    removeList(head);
+                    flag = true;
+                    break;
+                }else{
+                    colisiones++;
+                    c++;
+                    min++;
+                }
+            }
+        }
+        if(flag == false){
+            noIngresados++;
+            colisiones -= c;
+            removeList(head);
+        }
+
+    }
+    for(int i = 0; i<largo; i++){
+        if(arreglo[i].nombre==""){
+            arreglo[i].nombre="empty";
         }
     }
+    PRINT(arreglo,colisiones,noIngresados,largo);
+}
+
+void PRINT(alumno arreglo[], int colisiones, int noIng, int largo){
+    for(int i=0; i<largo; i++){
+        cout<<i<<": "<<arreglo[i].nombre<<endl;
+    }
+    cout<<"Colisiones: "<<colisiones<<endl;
+    cout<<"No ingresados: "<<noIng<<endl;
 }
 
 int sumRol(string rol){
@@ -124,6 +139,8 @@ int hasah(string x, int largo){
     return suma % largo;
 }
 
+
+
 void removeList(node *&head){
     node * tmp = head;
     head = head->next;
@@ -134,7 +151,7 @@ void removeList(node *&head){
 void printList(node *head){  //imprimir lista en pantalla
     int count = 0;
     for (node *it = head; it != NULL; it = it -> next) {
-        cout <<it->info->nombre<< endl;
+        cout <<it->info.nombre<< endl;
         count++;
     }
 }
