@@ -32,7 +32,13 @@ Map::Map(ifstream& data){
 		getline(data, aux);		// Lee linea por linea desde data
 		read += aux;			// Las almacena en un string
 	}
-	read.erase(std::remove(read.begin(),read.end(),' '),read.end());
+
+	int length = read.length();
+	for (int i = length-1; i >= 0; --i) {
+	if(read[i] == ' ')
+		read.erase(i, 1);
+	}
+	//read.erase(std::remove(read.begin(),read.end(),' '),read.end());
 
 	for (int h = 0; h < _height; h++) {
 		for (int w = 0; w < _width; w++) {			// Guarda informacion en el arreglo
