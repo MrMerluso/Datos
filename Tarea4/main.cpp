@@ -17,15 +17,20 @@ int main(int argc, char *argv[]){
 
     alumnos = new alumno[largo];
 
-    // sumRol("202073001K");
-
-    // readFile(file,lista);
     
-    // printList(lista);
 
-    // removeList(lista);
+    
 
-    // printList(lista);
+    readFile(file,lista);
+    
+    
+    
+
+    insertStudent(lista,alumnos,largo);
+
+    delete [] alumnos;
+    
+    
 
     return 0;
 }

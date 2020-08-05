@@ -21,7 +21,7 @@ struct printer{
     bool isOn = false;
 
     // No tengo idea de si esta es la forma correcta de añadir esto al archivo hpp. Que mal.
-    //Update: no me importa si es asi o no, la wea funcionó y no puedo conchetumare creermelo.
+
 
     bool checkPrinter(){
         return isOn;
@@ -54,6 +54,8 @@ void print(printer *&queue);
 
 string getDoc(string s);
 string getStackOwner(string s);
+
+void liberarMemoria(stack *&hubStack, stack *&javiStack, stack *&johnStack, printer *&queue);
 
 void printStack(stack *nodo);
 void printQueue(printer *nodo);

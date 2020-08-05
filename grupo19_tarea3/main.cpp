@@ -24,16 +24,16 @@ int main(){
             string args;
             getline(cin,args);
             
-            if (getStackOwner(args) == "hubert stack"){
-                cout << "hubert" << endl;
+            if (getStackOwner(args) == " hubert stack"){
+                
                 pushToStack(hubStack,getDoc(args));
             }
-            else if (getStackOwner(args) == "javiera stack"){
-                cout << "javi" << endl;
+            else if (getStackOwner(args) == " javiera stack"){
+
                 pushToStack(javiStack,getDoc(args));
             }
-            else if (getStackOwner(args) == "john stack"){
-                cout << "john" << endl;
+            else if (getStackOwner(args) == " john stack"){
+
                 pushToStack(johnStack,getDoc(args));
             }        
 
@@ -43,22 +43,18 @@ int main(){
             cin>>arg;
             //Asumo que cuando se apaga la impresora se libera la memoria
 
-            cout << command << "and" << arg << endl;
             if(arg== "on"){
                 Printer->turnPrinterOn();
-                cout << Printer->isOn << endl;
             }
             else if(arg == "off"){
                 Printer->turnPrinterOff();
-                // liberarMemoria();
-                cout << Printer->isOn << endl;
+                liberarMemoria(hubStack,javiStack,johnStack,Printer);
                 break;
             }
 
         }else if(command == "read"){
             if(Printer->checkPrinter()){
                 readDocs(hubStack,javiStack,johnStack,Printer);
-                printQueue(Printer);
             }else{
                 cout << "the printer is off" << endl;
             }
@@ -71,13 +67,13 @@ int main(){
             }
         }
     }
-    printQueue(Printer);
-    cout << "hubStack" << endl;
-    printStack(hubStack);
-    cout << "javiStack" << endl;
-    printStack(javiStack);
-    cout << "johnStack" << endl;
-    printStack(johnStack);
+    // printQueue(Printer);
+    // cout << "hubStack" << endl;
+    // printStack(hubStack);
+    // cout << "javiStack" << endl;
+    // printStack(javiStack);
+    // cout << "johnStack" << endl;
+    // printStack(johnStack);
 
     /* cout << printer.checkPrinter() << endl;
 

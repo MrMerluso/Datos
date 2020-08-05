@@ -5,6 +5,8 @@
 
 using namespace std;
 
+
+// Stack functions
 void pushToStack(stack *&nodo, string doc){
     stack * tmp = new stack;
     tmp->doc=doc;
@@ -19,6 +21,7 @@ void popFromStack(stack *&nodo){
     delete tmp;
 }
 
+// Queue functions
 void printerEnqueue(printer *&queue, string doc){
     node * temp = new node;
     temp->doc = doc;
@@ -43,28 +46,29 @@ void printerDequeue(printer *&queue){
 
 // Ler los documentos de los stack y meterlos al q
 void readDocs(stack *&hubStack, stack *&javiStack, stack *&johnStack, printer *&queue){
-    int i=0;
+
     while(hubStack!=NULL || javiStack!=NULL || johnStack != NULL){
         if(hubStack!=NULL){
             printerEnqueue(queue,hubStack->doc);
             popFromStack(hubStack);
-            i++;
+            
         }
         if(javiStack!=NULL){
             printerEnqueue(queue,javiStack->doc);
             popFromStack(javiStack);
-            i++;
+            
         }
         if(johnStack!=NULL){
             printerEnqueue(queue,johnStack->doc);
             popFromStack(johnStack);
-            i++;
+            
         }
         
     }
-    cout<<i<<" documents added!"<<endl;
+    
 }
 
+// imprimir y remover elementos del queue
 void print(printer *&queue){
     while(queue->front != NULL){
         cout << queue->front->doc << endl;
@@ -79,17 +83,62 @@ void print(printer *&queue){
 // TODO: NO FUNCIONA CON EL EJEMPLO "add how to poner atencion en clases online easy to john stack"
 // ya que hay 2 "to" en el string y las funciones dividen cuando encuentran el primer "to". FIX FAST.
 string getDoc(string s){
-    string delimiter = " to ";
-    int pos = s.find(delimiter);
-    string token = s.substr(0,pos);
+    string delimiter = "to";
+    int pos = 0;
+    string token;
+    int last = 0; 
+    int next = 0;
+    while ((next = s.find(delimiter, last)) != string::npos){
+
+        token = token+s.substr(last, next - last);
+        if (s.find(delimiter, next+2) != string::npos){
+            token = token+"to";
+        }
+        last = next + 2;
+    }
+
     return token;
 }
 
+
 string getStackOwner(string s){
-    string delimiter = " to ";
-    int pos = s.find(delimiter);
-    string token = s.erase(0, pos + delimiter.length());
-    return token;
+    string delimiter = "to";
+    int pos = 0;
+
+    int last = 0; 
+    int next = 0;
+    while ((next = s.find(delimiter, last)) != string::npos){
+
+        last = next + 2;
+    }
+    return s.substr(last);
+}
+
+void liberarMemoria(stack *&hubStack, stack *&javiStack, stack *&johnStack, printer *&queue){
+    while(hubStack!=NULL || javiStack!=NULL || johnStack != NULL){
+        if(hubStack!=NULL){
+            
+            popFromStack(hubStack);
+            
+        }
+        if(javiStack!=NULL){
+            
+            popFromStack(javiStack);
+            
+        }
+        if(johnStack!=NULL){
+            
+            popFromStack(johnStack);
+            
+        }
+    }
+    delete hubStack;
+    delete javiStack;
+    delete johnStack;
+    while(queue->front = NULL){
+        printerDequeue(queue);
+    }
+    delete(queue);
 }
 
 //Funciones temporales para imprimir por pantalla lista/cola, remover antes de entregar(?)
