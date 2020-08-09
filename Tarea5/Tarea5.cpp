@@ -14,6 +14,13 @@ using namespace std;		// Incluye espacio de nombres para palabras reservadas
 int main(int argc, char* argv[]) {
 	ifstream map_in;	// MAPA
 
+	queue * cola = new queue;	//LISTA
+
+	cola->back = NULL,
+	cola->front = NULL;
+
+
+
 	if (argc != 2) {
 		cout << "Usage: ./Tarea5 <pbm input file> " << endl;
 		exit(1);
@@ -26,8 +33,44 @@ int main(int argc, char* argv[]) {
 	}
 
 	Map map(map_in); // inicia el mapa
+
+	string comm;
+
+	/* int coords[4][2] = {{2,3},{4,3},{6,9},{0,1}};
+
+	for (int i = 0; i < 4; i++)
+	{
+		ponerEnCola(coords[i][0]);
+		ponerEnCola(coords[i][1]);
+		
+	} */
+	
+
+	/* while(1){
+		cin >> comm;
+		string coord1, coord2, to;
+		
+		if(comm == "show"){
+			cout << comm <<endl;
+
+		}
+		else if(comm == "from"){
+			cin >> coord1;
+			cin >> to;
+			cin >> coord2;
+			
+		}
+		
+		
+
+	} */
+
+
 	map.dim(); //Muestra las dimensiones del mapa en pantalla
-	map.islands_positions(); //Muestra posiciones de las islas en pantalla
+	cout << "WENA MARIO" << endl;
+	map.islands_positions(cola); //Muestra posiciones de las islas en pantalla
+	
+	PRINT(cola);
 	map_in.close();			// Cierra el archivo del map
 	return 0;
 }

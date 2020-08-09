@@ -9,6 +9,7 @@
 #include "Map.h"			/* Incluye libreria de cabecera que define
 							 * los constructores y metodos a implementar */
 #include <stdlib.h>
+#include <cmath>
 
 using namespace std;		// Incluye espacio  de nombres para palabras reservadas
 
@@ -35,8 +36,8 @@ Map::Map(ifstream& data){
 
 	int length = read.length();
 	for (int i = length-1; i >= 0; --i) {
-	if(read[i] == ' ')
-		read.erase(i, 1);
+		if(read[i] == ' ')
+			read.erase(i, 1);
 	}
 	//read.erase(std::remove(read.begin(),read.end(),' '),read.end());
 
@@ -46,6 +47,8 @@ Map::Map(ifstream& data){
 				_array[h][w] = true : _array[h][w] = false;
 		}
 	}
+	
+	costos = new int * [];
 	/* Constructor que se encarga de obtener y almacenar informacion desde data */
 }
 
@@ -59,12 +62,68 @@ void Map::dim(){
 	/* Metodo que escribe en pantalla las dimensiones */
 }
 
-void Map::islands_positions(){
+void Map::islands_positions(queue *&c){
+
 	for(int j = 0; j < _height; j++){
 		for(int i = 0; i<_width;i++){
-			if(isThere_an_island(i,j)) cout<<"Isla en: ("<< i << "," << j<<") ";	
+			if(isThere_an_island(i,j)) {
+				cout<<"Isla en: ("<< i << "," << j<<") ";
+				ponerEnCola(i,j,c);
+			}
 		}
 		cout<<endl;
 	}
 	/* Metodo que escribe en pantalla las las posiciones de las islas */
-}				
+}	
+
+int Map::getDistance(node * a, node * b){
+	int x1 = a->x;
+	int y1 = a->y;
+	int x2 = b->x;
+	int y2 = b->y;
+
+	int resta1 = x2-x1;
+	int resta2 = y2-y1;
+
+	return round(hypot(resta1,resta2));
+
+}
+
+//funciones cola
+
+void ponerEnCola(int x, int y, queue *&c){
+    node * temp = new node;
+    temp->x = x;
+	temp->y = y;
+    temp->next = NULL;
+
+    if(c->front == NULL && c->back == NULL){
+        c->front = c->back = temp;
+        return;
+    }
+    c->back->next = temp;
+    c->back = temp;
+}
+
+void quitar(queue *&c){
+
+	node *tmp = c->front;
+	c->front = c->front->next;
+	delete tmp;
+
+	
+}
+
+int queueLength(queue *c){
+	int count = 0;
+	for(node *it = c->front;it != NULL; it = it->next){
+		count++;
+	}
+	return count;
+}
+
+void PRINT(queue *c){
+    for(node *it = c->front;it != NULL; it = it->next){
+        cout<<"("<< it->x << "," << it->y <<")" <<endl;
+    }
+}

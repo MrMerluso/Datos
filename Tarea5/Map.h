@@ -10,7 +10,23 @@
 #include <fstream>			// Biblioteca para las operaciones con archivos
 #include <iostream>		
 
+struct node{
+	int x, y;
+	node *next;
+};
+
+struct queue
+{ node * front, * back;
+};
+
+
 class Map{
+	private:
+	/* Declaracion de variables */
+		bool** _array;
+		int _width, _height;
+		int ** costos;
+		
 	public:
 	/* Constructores y metodos */
 		Map(): _array(NULL), _width(0), _height(0) {}
@@ -18,14 +34,22 @@ class Map{
 		bool** getArray() {return _array;}
 		int getWidth() {return _width;}
 		int getHeight() {return _height;}
+
+		int getDistance(node * a, node * b);
+		
+
 		void dim();
 		bool isThere_an_island(int x, int y);
-		void islands_positions();
-	private:
-	/* Declaracion de variables */
-		bool** _array;
-		int _width, _height;
+		void islands_positions(queue *&c);
+	
 };
+
+void ponerEnCola(int x, int y, queue *&c);
+void quitar(queue *&c);
+
+int queueLength(queue *c);
+
+void PRINT(queue *c);
 
 #endif 		/* Codigo se incluye en el paquete
  	 	 	 * que se envia al compilador hasta aqui */
